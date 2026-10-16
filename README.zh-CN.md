@@ -4,7 +4,7 @@
 
 **一个 0.6B 并行决策模型：输入状态与问题，直接得到完整概率分布，无需生成答案 token。**
 
-> **新论文：[System1-Arena: Which Decisions Can Be Left to System 1?](https://arxiv.org/abs/2610.21244)** — 一个包含 268 个决策数据源和 138 个闭环环境的基准，在准确率、概率校准和延迟上比较 Jev 等快速 System-1 模型与 LLM。[排行榜](https://tianyucodings.github.io/S1-Arena) · [代码](https://github.com/TianyuCodings/S1-Arena) · [数据集](https://huggingface.co/datasets/C-Tianyu/S1-Arena)
+> **新论文：[System1-Arena: Which Decisions Can Be Left to System 1?](https://arxiv.org/abs/2610.21244)** — 目前最全面的 Jev 类模型基准，涵盖分类任务与智能体（agentic）任务。[排行榜](https://tianyucodings.github.io/S1-Arena) · [代码](https://github.com/TianyuCodings/S1-Arena) · [数据集](https://huggingface.co/datasets/C-Tianyu/S1-Arena)
 
 > **新项目：[JevHarness](https://github.com/TianyuCodings/JevHarness)** — 让 LLM 围绕 [Jev](https://typesafe.ai/blog/introducing-system-one-models-and-jev) 编写面向具体任务的决策程序，并可利用奖励与执行轨迹进一步优化。附有可交互的 Pokémon 演示。
 
