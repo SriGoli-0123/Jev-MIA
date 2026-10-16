@@ -4,6 +4,8 @@
 
 **A 0.6B parallel decision model: states and questions in, complete probability distributions out. Zero output-token decoding.**
 
+> **New paper: [System1-Arena: Which Decisions Can Be Left to System 1?](https://arxiv.org/abs/2610.21244)** — A benchmark of 268 decision sources and 138 closed-loop environments that compares fast System-1 models such as Jev with LLMs on accuracy, calibration and latency. [Leaderboard](https://tianyucodings.github.io/S1-Arena) · [Code](https://github.com/TianyuCodings/S1-Arena) · [Dataset](https://huggingface.co/datasets/C-Tianyu/S1-Arena)
+
 > **New project: [JevHarness](https://github.com/TianyuCodings/JevHarness)** — Let an LLM build task-specific decision harnesses with [Jev](https://typesafe.ai/blog/introducing-system-one-models-and-jev), with optional refinement using rewards and execution traces. Includes an interactive Pokémon demo.
 
 [Play ViZDoom](https://nanojev-dev.tianyuchen99.chatgpt.site/?autoplay=1) · [Maze & Snake](https://nanojev-dev.tianyuchen99.chatgpt.site/side-by-side?autoplay=1#maze) · [Model](https://huggingface.co/C-Tianyu/NanoJev) · [Dataset](https://huggingface.co/datasets/C-Tianyu/NanoJev-Data)
