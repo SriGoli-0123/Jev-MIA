@@ -1,0 +1,17 @@
+# Tiny dataset for the pre-GPU smoke test. Same structure as ../data.yaml.
+base: ../data.yaml
+pools:
+  - {name: shadow_member, size: 24}
+  - {name: shadow_nonmember, size: 24}
+  - {name: shadow_dev, size: 8}
+  - {name: shadow_test, size: 8}
+  - {name: target_member, size: 24}
+  - {name: target_nonmember, size: 24}
+  - {name: target_dev, size: 8}
+  - {name: target_test, size: 8}
+  - {name: xp_shadow_background, size: 12}
+  - {name: xp_target_background, size: 12}
+  - {name: pio_base, size: 16}
+  - {name: pio_canary, size: 6}
+  - {name: pio_twin, matched_to: pio_canary}
+  - {name: pio_control, size: 6}

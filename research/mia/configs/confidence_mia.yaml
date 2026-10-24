@@ -1,0 +1,15 @@
+# Confidence-based MIA baseline (method of arXiv:2610.04985, Sec. IV-A).
+extraction:
+  precision: fp32            # fp32 forward of the frozen model; bf16 (CUDA only) matches upstream eval
+  microbatch_questions: 32
+  max_microbatch_tokens: 65536
+  eps: 1.0e-6                # clipping for logit p(y)
+feature_sets: [paper, extended]   # paper: (h, p_max) for Choice/Score, p_max for Noul; extended: exploratory
+units: [primitive, state]         # primitive = one attacker per question type (paper); state = 3 questions jointly
+attack:
+  C: 1.0                     # inverse L2 strength of the logistic regression
+  max_iter: 2000
+  calibration_fraction: 0.2  # shadow states held out to choose gamma (max balanced accuracy)
+evaluation:
+  fprs: [0.001, 0.01, 0.05]
+  n_bootstrap: 1000

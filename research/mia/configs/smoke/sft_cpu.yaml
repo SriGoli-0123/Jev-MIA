@@ -1,0 +1,6 @@
+# CPU smoke test: smoke_test.py replaces base_model with a tiny random Qwen3 built under the run dir.
+base: ../shadow_sft.yaml
+base_model: REPLACED_BY_SMOKE_TEST
+base_revision: main
+trainer: {steps: 24, head_steps: 2, batch_questions: 6, microbatch_questions: 3, eval_every: 8, precision: fp32}
+runtime: {cpu_shim: true}

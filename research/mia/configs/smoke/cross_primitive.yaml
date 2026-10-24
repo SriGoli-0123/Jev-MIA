@@ -1,0 +1,2 @@
+base: ../cross_primitive.yaml
+evaluation: {n_bootstrap: 30}

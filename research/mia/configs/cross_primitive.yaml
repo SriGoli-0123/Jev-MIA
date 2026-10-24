@@ -1,0 +1,6 @@
+# Cross-primitive MIA. Train six models first with --variant xp_boolean / xp_choice / xp_score
+# (shadow and target). Confidence features only; RIFT is not mixed in.
+extraction: {precision: fp32, microbatch_questions: 32, max_microbatch_tokens: 65536, eps: 1.0e-6}
+feature_set: paper
+attack: {C: 1.0, max_iter: 2000, calibration_fraction: 0.2}
+evaluation: {fprs: [0.001, 0.01, 0.05], n_bootstrap: 1000}

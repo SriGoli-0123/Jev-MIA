@@ -1,0 +1,7 @@
+base: ../rift.yaml
+counterfactual: {n_replacements: 2, chunk_states: 8}
+feasibility: {n_permutations: 50, energy_permutations: 50, c2st_permutations: 10, incremental_permutations: 10,
+              cv_folds: 3, min_matched_pairs: 3, noise_floor_states: 4}
+mia:
+  evaluation: {n_bootstrap: 30}
+  overlap: {min_pairs: 3}

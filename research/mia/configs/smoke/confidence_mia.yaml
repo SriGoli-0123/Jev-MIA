@@ -1,0 +1,2 @@
+base: ../confidence_mia.yaml
+evaluation: {n_bootstrap: 50}

@@ -1,0 +1,27 @@
+# Structured support-state pools for membership inference.
+# All pools are disjoint at the state level (every question of a state stays with it).
+# Sizes are configurable; this is the "initial full experiment" scale.
+
+languages: [en, zh]         # upstream support generator renders both; drawn identically for every pool
+choice_k: {min: 2, max: 5}  # dynamic Choice candidate-set size, as in upstream (2..5)
+label_noise_rate: 0.0       # 0 = deterministic upstream labels. >0 only for a memorization positive control.
+
+pools:
+  # Main shadow / target worlds (confidence MIA, RIFT).
+  - {name: shadow_member, size: 1000}      # D_M^S  -> SFT train for theta_S
+  - {name: shadow_nonmember, size: 1000}   # D_NM^S -> never in any SFT file
+  - {name: shadow_dev, size: 200}          # checkpoint selection for theta_S (neither member nor non-member)
+  - {name: shadow_test, size: 200}         # upstream trainer requires a test split; reported only
+  - {name: target_member, size: 1000}      # D_M^T  -> SFT train for theta_T
+  - {name: target_nonmember, size: 1000}   # D_NM^T
+  - {name: target_dev, size: 200}
+  - {name: target_test, size: 200}
+  # Cross-primitive experiment: background states train every primitive so all three heads are learned.
+  - {name: xp_shadow_background, size: 500}
+  - {name: xp_target_background, size: 500}
+  # Paired IN/OUT causal check: base set + canaries x, each with a matched twin x' (same facts,
+  # template, language, q, A and y; different nuisance). theta_IN trains base+canary, theta_OUT base+twin.
+  - {name: pio_base, size: 500}
+  - {name: pio_canary, size: 64}
+  - {name: pio_twin, matched_to: pio_canary}
+  - {name: pio_control, size: 64}           # trained by neither paired model: model-difference noise floor

@@ -1,0 +1,5 @@
+# Memorization positive control: same pools, but 20% of question labels are flipped to another valid
+# answer. Flipped labels can only be fit by memorizing the state, so a working confidence-MIA pipeline
+# should separate members from non-members here. Use it to validate the pipeline, not as a result.
+base: data.yaml
+label_noise_rate: 0.2

@@ -1,0 +1,3 @@
+# GPU smoke test: real Qwen3-0.6B-Base, unmodified upstream trainer, a few steps.
+base: ../shadow_sft.yaml
+trainer: {steps: 20, eval_every: 10}

@@ -1,0 +1,3 @@
+# The repository root .gitignore ignores every directory named data/ and artifacts/.
+# Re-include this package's data/ code; generated artifacts/ stay ignored.
+!/data/

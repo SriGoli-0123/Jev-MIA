@@ -1,0 +1,7 @@
+# Paired IN/OUT causal check. Paths are relative to this file.
+sft_config: shadow_sft.yaml   # identical training procedure to the shadow/target victims
+rift_config: rift.yaml        # extraction + counterfactual settings
+analysis:
+  logit_tolerance: 0.25       # "confidence unchanged": |logit p_IN(y) - logit p_OUT(y)| < this
+  n_bootstrap: 1000
+  min_subset: 10

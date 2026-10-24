@@ -1,0 +1,4 @@
+# Same architecture and training procedure as the shadow (every value inherited).
+# Only the data (D_M^T instead of D_M^S) and the --seed differ.
+base: shadow_sft.yaml
+description: NanoJev SFT of a membership-inference victim (target)

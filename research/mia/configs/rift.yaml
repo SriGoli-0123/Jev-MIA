@@ -1,0 +1,45 @@
+# RIFT feasibility (run_rift_feasibility.py) and RIFT MIA (run_rift_mia.py) share this file so the
+# counterfactual settings are guaranteed identical; run_rift_mia.py checks this against verdict.json.
+extraction:
+  precision: fp32            # interactions are second differences: keep fp32 so rounding noise stays small
+  microbatch_questions: 32
+  max_microbatch_tokens: 65536
+  eps: 1.0e-6
+counterfactual:
+  pairs: [[1, 2], [1, 3], [2, 3]]   # I12, I13, I23 only. Higher orders are supported by attacks/rift.py but not used.
+  n_replacements: 3                 # distinct (Fi', Fj') per pair; I is averaged over them, each one saved
+  replacement_seed: 0               # fixed so feasibility and MIA query identical variants
+  chunk_states: 32
+feasibility:
+  alpha: 0.05
+  n_permutations: 1000
+  energy_permutations: 500
+  energy_max_n: 3000
+  c2st_permutations: 200
+  incremental_permutations: 200
+  cv_folds: 5
+  matched_caliper_sd: 0.05
+  min_matched_pairs: 50
+  min_seeds: 2
+  min_seed_fraction: 0.67           # a test must be significant in >= max(min_seeds, ceil(0.67 * n)) seeds
+  noise_floor_states: 16
+mia:
+  feature_sets:
+    confidence: [confidence]
+    first_order: [D1, D2, D3]
+    rift: [I12, I13, I23]
+    confidence+first_order: [confidence, D1, D2, D3]
+    confidence+rift: [confidence, I12, I13, I23]
+    confidence+first_order+rift: [confidence, D1, D2, D3, I12, I13, I23]
+  comparisons:                      # paired state-level bootstrap of ROC-AUC differences, same candidates
+    - [rift, confidence]
+    - [first_order, confidence]
+    - [confidence+rift, confidence]
+    - [confidence+rift, confidence+first_order]
+    - [confidence+first_order+rift, confidence+first_order]
+  attack: {C: 1.0, max_iter: 2000, calibration_fraction: 0.2}
+  evaluation: {fprs: [0.001, 0.01, 0.05], n_bootstrap: 1000}
+  overlap:
+    caliper_sd: 0.05                # confidence-matched subset: 1:1 matching on the frozen confidence attack score
+    min_pairs: 30
+    saturation_p_max: 0.99          # saturated subset: p_max >= this

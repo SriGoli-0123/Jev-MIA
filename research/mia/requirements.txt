@@ -1,0 +1,14 @@
+# Upstream NanoJev pins (requirements-toy.txt), used for its A100 runs.
+torch==2.14.0
+transformers==5.17.0
+safetensors==0.8.0
+numpy==2.5.3
+# Added by research/mia.
+scipy>=1.13
+scikit-learn>=1.5
+pandas>=2.2
+PyYAML>=6.0
+matplotlib>=3.8
+joblib>=1.4
+huggingface_hub>=0.30
+pytest>=8

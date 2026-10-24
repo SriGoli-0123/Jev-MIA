@@ -1,0 +1,4 @@
+base: ../paired_in_out.yaml
+sft_config: sft_cpu.yaml   # smoke_test.py passes --sft-config explicitly
+rift_config: rift.yaml     # resolves to smoke/rift.yaml
+analysis: {n_bootstrap: 30, min_subset: 2}

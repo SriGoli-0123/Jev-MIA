@@ -1,0 +1,25 @@
+# theta_0 --SFT(D_M^S)--> theta_S with NanoJev's unmodified scripts/train_pipeline_decisions.py.
+# target_sft.yaml inherits every value from this file: same architecture and training procedure.
+description: NanoJev SFT of a membership-inference victim (shadow)
+base_model: Qwen/Qwen3-0.6B-Base
+base_revision: da87bfb608c14b7cf20ba1ce41287e8de496c0cd   # revision upstream used for its support-decision run
+trainer:
+  objective: gold_distribution   # hard gold -> one-hot cross entropy (upstream has no separate "gold" choice)
+  loss: ce
+  set_head: attention
+  epochs: 5                      # converted to --steps = ceil(epochs * train_questions / batch_questions)
+  steps: null                    # set an integer to override epochs
+  head_steps: 12                 # upstream default: head-only warm-up steps
+  batch_questions: 12
+  microbatch_questions: 4
+  max_microbatch_tokens: 16384
+  eval_every: 50                 # dev CE on <side>_dev; upstream keeps the best dev checkpoint
+  max_length: 512
+  backbone_lr: 2.0e-5
+  head_lr: 2.0e-4
+  head_warmup_lr: 1.0e-3
+  precision: bf16
+  gradient_checkpointing: false
+  disable_native_triton: false   # upstream needed true on its torch 2.14 host without Python headers
+runtime:
+  cpu_shim: false                # never true for reported runs
