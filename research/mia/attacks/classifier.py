@@ -7,6 +7,7 @@ attacker cannot see target membership labels.
 """
 import json
 import random
+from pathlib import Path
 
 import joblib
 import numpy as np
@@ -39,7 +40,8 @@ class AttackClassifier:
         if len(set(y)) != 2:
             raise ValueError("Shadow attack data must contain members and non-members")
         self.scaler = StandardScaler().fit(X)
-        self.model = LogisticRegression(penalty="l2", C=self.C, solver="lbfgs", max_iter=self.max_iter)
+        # L2 is the default penalty in every scikit-learn version; passing it explicitly is deprecated in 1.8.
+        self.model = LogisticRegression(C=self.C, solver="lbfgs", max_iter=self.max_iter)
         self.model.fit(self.scaler.transform(X), y)
         return self
 
@@ -72,6 +74,10 @@ class AttackClassifier:
                 "threshold_gamma": self.threshold, "frozen": self.frozen}
 
     def save(self, path_stem):
+        path_stem = Path(path_stem)
+        path_stem.parent.mkdir(parents=True, exist_ok=True)
+        if Path(f"{path_stem}.joblib").exists():
+            raise FileExistsError(f"Refusing to overwrite {path_stem}.joblib")
         joblib.dump({"scaler": self.scaler, "model": self.model, "features": self.features,
                      "threshold": self.threshold}, f"{path_stem}.joblib")
         with open(f"{path_stem}.json", "x", encoding="utf-8") as handle:

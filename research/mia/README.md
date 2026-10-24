@@ -20,12 +20,12 @@ setting."*
 | Upstream SFT (`train_pipeline_decisions.py`) on a tiny backbone via the CPU shim | ran end to end |
 | Our probability extraction vs. upstream's own saved dev predictions | max abs diff 3.4e-8 |
 | Tiny dataset generation + upstream schema validation | ran |
-| `research/mia/tests` (pytest) | **written, not yet run** |
-| `experiments/smoke_test.py` | **written, not yet run** |
+| `research/mia/tests` (pytest) | 121 passed, 1 skipped (GPU-only parity test) on macOS CPU |
+| `experiments/smoke_test.py --mode cpu` | passed every stage (extraction parity 5.9e-8), about 2 minutes |
+| `experiments/smoke_test.py --mode gpu` | **not yet run** (needs CUDA) |
 | Any full-size training, MIA, RIFT, cross-primitive or paired result | **none exist yet** |
 
-The first four rows were checked during development, before the experiment scripts were finished.
-Run the tests and the smoke test (below) before any GPU job.
+Run the GPU smoke test on the training machine before any full-size job.
 
 ## Upstream base
 
